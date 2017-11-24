@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Wish List</title>
+</head>
+<body>
+	<div id="header">
+		<h1>Hello, {{ request.session.name }}!</h1>
+		<a href="/">Logout</a>
+	</div>
+	<div class="wishlist">
+		<h4>Your Wish List:</h4>
+		<table>
+			<tr>
+				<th>Item</th>
+				<th>Added By</th>
+				<th>Date Added</th>
+				<th>Action</th>
+			</tr>
+			{% for item in myItems %}
+			<tr>
+				<td><a href="/wish_item/{{item.id}}">{{ item.wish }}</a></td>
+				<td>{{ item.created_by.name }}</td>
+				<td>{{ item.created_at}} </td>
+
+				<td><a href="/delete/{{item.id}}">Delete</a></td>
+			</tr>
+			{% endfor %}
+			{% for item in added %}
+			<tr>
+				<td><a href="/wish_item/{{item.id}}">{{ item.wish }}</a></td>
+				<td>{{ item.created_by.name }}</td>
+				<td>{{ item.created_at}} </td>
+
+				<td><a href="/remove_wish/{{item.id}}">Remove</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+		<h4>Other Users' Wish List:</h4>
+		<table>
+			<tr>
+				<th>Item</th>
+				<th>Added By</th>
+				<th>Date Added</th>
+				<th>Action</th>
+			</tr>
+			{% for item in otherItems %}
+				{% if item.created_by.id != user.id %}
+			<tr>
+				<td><a href="/wish_item/{{item.id}}">{{ item.wish }}</a></td>
+				<td>{{ item.created_by.name }}</td>
+				<td>{{ item.created_at }}</td>
+				<td><a href="/add_item/{{item.id}}/{{user.id}}">Add to Wishlist</a></td>
+			</tr>
+				{% endif %}
+			{% endfor %}
+		</table>
+		<a href="/new_item">Add Item</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ item.wish }}</title>
+</head>
+<body>
+
+	<a href="/dashboard">Home</a>	<a href="/">Logout</a>
+	<h1> {{ item.wish }}</h1>
+	<p>Users who also added this product/item under their wish list:</p>
+		{% for other in others %}
+			{{ other.name }}
+		{% endfor %}
+
+</body>
+</html>
